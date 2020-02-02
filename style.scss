@@ -52,10 +52,6 @@ ul {
   list-style-type: none;
 }
 
-svg, img {
-  display: block;
-}
-
 .nav {
   position: fixed;
   bottom: 0;
@@ -202,7 +198,7 @@ div[data-scroll-content] {
 }
 
 #about {
-  background: url('/images/bg2.svg');
+  background: url('../images/bg2.svg');
   background-position: center center; 
   background-size: cover; 
   background-repeat: no-repeat; 
@@ -412,7 +408,7 @@ div[data-scroll-content] {
 
 .gamebase {
   .item:nth-child(1) .item__content {
-    background: url('/images/screen1.png') center center no-repeat;
+    background: url('../images/screen1.png') center center no-repeat;
     background-size: cover;
   }
 }
@@ -421,21 +417,21 @@ div[data-scroll-content] {
   margin-bottom: 0;
 
   .item:nth-child(1) .item__content {
-    background: url('/images/screen2.png') center center no-repeat;
+    background: url('../images/screen2.png') center center no-repeat;
     background-size: cover;
   }
 }
 
 .flappy-bird {
   .item:nth-child(1) .item__content {
-    background: url('/images/screen3.png') center center no-repeat;
+    background: url('../images/screen3.png') center center no-repeat;
     background-size: cover;
   }
 }
 
 .vr-controller {
   .item:nth-child(1) .item__content {
-    background: url('/images/screen4.png') center center no-repeat;
+    background: url('images/screen4.png') center center no-repeat;
     background-size: cover;
   }
 }
@@ -443,7 +439,7 @@ div[data-scroll-content] {
 #footer {
   min-height: 50vh;
   padding: 0;
-  background: url('/images/bg.svg') #002b3d;
+  background: url('../images/bg.svg') #002b3d;
   background-position: center center; 
   background-size: cover; 
   background-repeat: no-repeat; 
@@ -483,7 +479,7 @@ div[data-scroll-content] {
 
   .gamebase {
     .item:nth-child(1) .item__content {
-      background: url('/images/screen1.gif') center center no-repeat;
+      background: url('../images/screen1.gif') center center no-repeat;
       background-size: cover;
     }
   }
@@ -492,21 +488,21 @@ div[data-scroll-content] {
     margin-bottom: 0;
   
     .item:nth-child(1) .item__content {
-      background: url('/images/screen2.gif') center center no-repeat;
+      background: url('../images/screen2.gif') center center no-repeat;
       background-size: cover;
     }
   }
   
   .flappy-bird {
     .item:nth-child(1) .item__content {
-      background: url('/images/screen3.gif') center center no-repeat;
+      background: url('../images/screen3.gif') center center no-repeat;
       background-size: cover;
     }
   }
   
   .vr-controller {
     .item:nth-child(1) .item__content {
-      background: url('/images/screen4.gif') center center no-repeat;
+      background: url('../images/screen4.gif') center center no-repeat;
       background-size: cover;
     }
   }

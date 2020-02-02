@@ -36,9 +36,6 @@ ul {
   padding: 0;
   list-style-type: none; }
 
-svg, img {
-  display: block; }
-
 .nav {
   position: fixed;
   bottom: 0;
@@ -144,7 +141,7 @@ div[data-scroll-content] {
     text-align: center; }
 
 #about {
-  background: url("/images/bg2.svg");
+  background: url("../images/bg2.svg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -292,27 +289,27 @@ div[data-scroll-content] {
           margin: 6px 20px 24px; }
 
 .gamebase .item:nth-child(1) .item__content {
-  background: url("/images/screen1.png") center center no-repeat;
+  background: url("../images/screen1.png") center center no-repeat;
   background-size: cover; }
 
 .flickr-search {
   margin-bottom: 0; }
   .flickr-search .item:nth-child(1) .item__content {
-    background: url("/images/screen2.png") center center no-repeat;
+    background: url("../images/screen2.png") center center no-repeat;
     background-size: cover; }
 
 .flappy-bird .item:nth-child(1) .item__content {
-  background: url("/images/screen3.png") center center no-repeat;
+  background: url("../images/screen3.png") center center no-repeat;
   background-size: cover; }
 
 .vr-controller .item:nth-child(1) .item__content {
-  background: url("/images/screen4.png") center center no-repeat;
+  background: url("images/screen4.png") center center no-repeat;
   background-size: cover; }
 
 #footer {
   min-height: 50vh;
   padding: 0;
-  background: url("/images/bg.svg") #002b3d;
+  background: url("../images/bg.svg") #002b3d;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -339,18 +336,18 @@ div[data-scroll-content] {
     order: 2;
     flex-basis: 10%; }
   .gamebase .item:nth-child(1) .item__content {
-    background: url("/images/screen1.gif") center center no-repeat;
+    background: url("../images/screen1.gif") center center no-repeat;
     background-size: cover; }
   .flickr-search {
     margin-bottom: 0; }
     .flickr-search .item:nth-child(1) .item__content {
-      background: url("/images/screen2.gif") center center no-repeat;
+      background: url("../images/screen2.gif") center center no-repeat;
       background-size: cover; }
   .flappy-bird .item:nth-child(1) .item__content {
-    background: url("/images/screen3.gif") center center no-repeat;
+    background: url("../images/screen3.gif") center center no-repeat;
     background-size: cover; }
   .vr-controller .item:nth-child(1) .item__content {
-    background: url("/images/screen4.gif") center center no-repeat;
+    background: url("../images/screen4.gif") center center no-repeat;
     background-size: cover; } }
 
 @media only screen and (min-width: 1000px) {
