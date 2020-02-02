@@ -1,0 +1,6 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 800">
+<path class="rect" fill="#1b1c1e" d="M0 0h1600v800H0z"/>
+    <path class="polygon2" fill="#132128" d="M1600 310L0 560V450l1600-250z"/>
+    <path class="polygon3" fill="#0d242e" d="M1600 410L0 660V550l1600-250z"/>
+    <path class="polygon4" fill="#002b3d" d="M1600 800H0V650l1600-250z"/>
+</svg>
