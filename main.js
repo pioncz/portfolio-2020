@@ -50,8 +50,9 @@ class Item {
   render(scrollY, winsize) {
     const map = (scrollY - this.offsetY) / winsize.height + 1;
     const progress = Math.max(Math.min(map, 1,), 0);
+
+    if (map <= -0.1 || map > 1.1) return;
     
-    if (progress <= 0 || progress > 1) return;
     this.lastProgress = progress;
 
     this.image.style.opacity = Math.min(progress * 10/7, 1);
