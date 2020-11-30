@@ -69,7 +69,7 @@ ul {
   .nav a.active::before, .nav a.active::after, .nav a:hover::before, .nav a:hover::after {
     width: 100%; }
   .nav__background {
-    background: rgba(6, 13, 20, 0.79);
+    background: rgba(6, 13, 20, 0.89);
     z-index: -1;
     height: 58px;
     position: absolute;
@@ -164,16 +164,28 @@ div[data-scroll-content] {
       padding-bottom: 16px;
       font-size: 30px; }
     #about .wrapper .avatar {
+      position: relative;
       border-radius: 2px;
       width: 175px;
       height: 175px;
       background: #cac4a8; }
-    #about .wrapper .avatar img {
-      display: block;
-      border-radius: 2px;
-      width: 100%;
-      height: 100%;
-      margin: -5%; }
+      #about .wrapper .avatar img, #about .wrapper .avatar .img {
+        display: block;
+        border-radius: 2px;
+        width: 100%;
+        height: 100%;
+        margin: -5%; }
+      #about .wrapper .avatar .img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(/images/avatar.png);
+        background-size: cover; }
+      #about .wrapper .avatar .img:nth-child(2) {
+        background-color: #01658f;
+        background-blend-mode: hard-light; }
     #about .wrapper .hello {
       font-size: 22px;
       padding: 18px 0 12px; }

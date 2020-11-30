@@ -13,6 +13,19 @@ const config = {
   width: window.innerWidth
 }
 
+function throttle(callback, limit) {
+  var waiting = false;
+  return function () {
+      if (!waiting) {
+          callback.apply(this, arguments);
+          waiting = true;
+          setTimeout(function () {
+              waiting = false;
+          }, limit);
+      }
+  }
+}
+
 class Item {
   constructor(element) {
     this.element = element;
@@ -35,29 +48,15 @@ class Item {
     this.offsetY = this.boundingRect.top + window.scrollY;
   }
   render(scrollY, winsize) {
-    const maxValue = 1;
-    const minValue = 0;
     const map = (scrollY - this.offsetY) / winsize.height + 1;
-    const progress = Math.max(
-      Math.min(
-        map,
-        maxValue,
-      ), 
-      minValue,
-    );
-    if (progress <= 0 || progress > 1 || progress < this.lastProgress) return;
+    const progress = Math.max(Math.min(map, 1,), 0);
+    
+    if (progress <= 0 || progress > 1) return;
     this.lastProgress = progress;
 
-    const progress2 = Math.min(
-      progress * 10/7,
-      maxValue,
-    );
-    this.image.style.opacity = progress2;
+    this.image.style.opacity = Math.min(progress * 10/7, 1);
     if (this.fromDirection === 'bottom') {
-      const progress3 = Math.min(
-        progress * 10/4,
-        maxValue,
-      );
+      const progress3 = Math.min(progress * 10/4, 1);
       const translateX = 0;
       const translateY = (1 - progress3) * (this.overflow);
       const scale = 0.95 + (0.05 * progress3);
@@ -65,13 +64,41 @@ class Item {
       this.image.style.transform = `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`;
       this.image.style.scale = scale;
     } else {
-      const translateX =  (this.fromDirection === 'left' ? 1 : -1) * ((progress * 0.8 + 0.2) - 1) * this.width; // 0.4 - 1
+      const progress2 = Math.max(Math.min(math.norm(progress, 0, 0.5), 1,), 0);
+      const translateX = (this.fromDirection === 'left' ? 1 : -1) * (progress2 - 1) * this.width;
       const translateY = progress * (this.overflow);
       
       this.image.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
     }
   }
 }
+
+let MAX_SHIFT_X = 50 * 2 * Math.min(1, Math.max(0, math.norm(config.width, 20, 1920)));
+let MAX_SHIFT_Y = 10 * 2 * Math.min(1, Math.max(0, math.norm(config.width, 20, 1920)));
+
+let glitchActive = false;
+const glitchItems = document.querySelectorAll('#about .avatar .img');
+const glitchAvatar = (active, value) => {
+  glitchActive = active;
+
+  for(let i = 0; i < glitchItems.length; i++) {
+    let item = glitchItems[i];
+    
+    if (!active || !value) {
+      item.style = {};
+    } else {      
+      let shiftX = (MAX_SHIFT_X * (Math.random() - 0.5) * value).toPrecision(2);
+      let shiftY = (MAX_SHIFT_Y * (Math.random() - 0.5) * value).toPrecision(2);
+      item.style.transform = `translate3d(${shiftX}px, ${shiftY}px, 0)`;
+      let h = parseInt(Math.random() * 50);
+      let y = parseInt(Math.random() * (100 - h));
+      item.style.clipPath = `polygon(0 ${y}%, 100% ${y}%, 100% ${y+h}%, 0 ${y+h}%)`;
+      item.style.opacity = Math.random() * Math.max(value, 0.3);
+    }
+  }
+}
+
+const glithAvatarThrottled = throttle(glitchAvatar, 50);
 
 let lastTick = Date.now();
 
@@ -84,7 +111,7 @@ class Smooth {
       current: 0,
       last: 0,
       which: 0,
-      lastSkew: null,
+      lastSkew: 0,
       lastNavProgress: null,
     };
 
@@ -109,8 +136,8 @@ class Smooth {
   }
 
   bindMethods() {
-  ['scroll', 'run', 'resize']
-  .forEach((fn) => this[fn] = this[fn].bind(this))
+    ['scroll', 'run', 'resize']
+      .forEach((fn) => this[fn] = this[fn].bind(this))
   }
 
   setStyles() {
@@ -164,11 +191,19 @@ class Smooth {
       const acc = diff / config.width;
       const velo =+ acc;
       let skew = velo * 7.5;
+      if (Math.abs(skew) < 0.01) {
+        skew = 0;
+      }
       skew = Math.min(Math.max(-20, skew), 20);
+      let skewAbs = Math.abs(skew);
 
       if (skew !== 0 || this.data.lastSkew !== 0) {
+        if (this.data.last < this.winsize.height && skewAbs > 0) {
+          glithAvatarThrottled(true, Math.min(skewAbs, 1));
+        } else if (glitchActive) {
+          glithAvatarThrottled(false);
+        }
         this.dom.content.style.transform = `translate3d(0, -${this.data.last}px, 0) skewY(${skew}deg)`
-    
         this.items.forEach((item, i) => item.render(this.data.last, this.winsize));
 
         const which = this.sectionPositions.findIndex(pos => pos >= (this.data.current + this.winsize.height / 2));
@@ -176,6 +211,10 @@ class Smooth {
         if (which !== this.data.which) {
           this.setActiveLink(which);
         }
+
+        this.data.lastSkew = skew;
+      } else if (glitchActive) {
+        glithAvatarThrottled(false);
       }
     }
 
@@ -187,11 +226,13 @@ class Smooth {
   }
 
   resize() {
-    this.scroll();
-    this.setHeight();
-    this.calcWinsize();
-    this.calcSectionPosition();
-    this.items.forEach(item => item.resize());
+    if (config.width !== window.innerWidth) {
+      this.scroll();
+      this.setHeight();
+      this.calcWinsize();
+      this.calcSectionPosition();
+      this.items.forEach(item => item.resize());
+    }
   }
 
   addEvents() {
