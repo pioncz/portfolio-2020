@@ -165,7 +165,7 @@ div[data-scroll-content] {
       font-size: 30px; }
     #about .wrapper .avatar {
       position: relative;
-      border-radius: 2px;
+      border-radius: 3px;
       width: 175px;
       height: 175px;
       background: #cac4a8; }

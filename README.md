@@ -1,9 +1,7 @@
 portfolio-2019
 
-glitch na gorze
-kafle powinny sie konczyc animowac szybciej
-maly glitch z kaflami ktore sa widoczne, potem rusza animacja i znikaja
-doswiadczenie: dodac bricodes, metrological, kurs online
+doswiadczenie: kurs online
+bug z widocznym zdjeciem
 
 responsywnosc: test na iphonie, dopasowac: nav bar, a:hover kreski gora dol
 test na wielu przegladarkach
