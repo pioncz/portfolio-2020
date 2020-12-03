@@ -94,6 +94,7 @@ const glitchAvatar = (active, value) => {
       let h = parseInt(Math.random() * 50);
       let y = parseInt(Math.random() * (100 - h));
       item.style.clipPath = `polygon(0 ${y}%, 100% ${y}%, 100% ${y+h}%, 0 ${y+h}%)`;
+      item.style.webkitClipPath = `polygon(0 ${y}%, 100% ${y}%, 100% ${y+h}%, 0 ${y+h}%)`;
       item.style.opacity = Math.random() * Math.max(value, 0.3);
     }
   }
@@ -122,7 +123,6 @@ class Smooth {
       el: document.querySelector('[data-scroll]'),
       content: document.querySelector('[data-scroll-content]'),
       navBackground: document.querySelector('.nav__background'),
-      contactImage: document.querySelector('.contact__image'),
     }
 
     this.items = [];
@@ -185,7 +185,7 @@ class Smooth {
       
       if (navProgress < 1 || !this.data.lastNavProgress || this.data.lastNavProgress < 1) {
         this.data.lastNavProgress = navProgress;
-        this.dom.navBackground.style.transform = `translate3d(0px,${(1-navProgress) * 58}px,0px)`
+        this.dom.navBackground.style.transform = `translate3d(0px,${(1-navProgress) * 100}%,0px)`
       }
 
       const diff = this.data.current - this.data.last;
@@ -297,4 +297,10 @@ class Smooth {
   }
 }
 
-new Smooth();
+document.onreadystatechange = () => {
+  const { readyState } = document;
+
+  if (readyState === 'complete') {
+    new Smooth();
+  }
+};
