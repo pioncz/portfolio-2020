@@ -23,7 +23,7 @@
     "style-loader": "^1.1.2"
   },
   "devDependencies": {
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   }
